@@ -35,8 +35,8 @@ st.set_page_config(
 @st.cache_data
 # Fungsi untuk menghasilkan data dashboard dan menyimpannya di cache
 def generate_dashboard_data():
-    # Membuat range tanggal dari 1 Januari 2024 selama 30 hari
-    dates = pd.date_range('2024-01-01', periods=30)
+    # Membuat range tanggal dari 1 Januari 2025 selama 30 hari
+    dates = pd.date_range('2025-01-01', periods=30)
 
     # Mengembalikan DataFrame dengan kolom Date, Sales, Visitors, dan Conversion
     return pd.DataFrame({
@@ -80,64 +80,42 @@ def get_projects_data():
         # Proyek pertama: E-commerce Sales Analysis
         {
             # Judul proyek dengan emoji
-            'title': '📊 Proyek 1: E-commerce Sales Analysis',
-            # Kategori proyek
-            'category': 'EDA',
-            # Tahun proyek dibuat
-            'year': 2023,
-            # Deskripsi detail tentang proyek
-            'description': '''**Deskripsi:**
-Melakukan analisis mendalam terhadap data penjualan e-commerce untuk mengidentifikasi
-trend dan peluang pertumbuhan.
-
-**Tools:** Python, Pandas, Matplotlib, Streamlit
-
-**Key Insights:**
-- Total sales meningkat 45% YoY
-- Kategori Electronics adalah top performer
-- Waktu terbaik untuk promo adalah Q4''',
-            # Flag apakah proyek memiliki gambar atau tidak
-            'has_image': False
-        },
-        # Proyek kedua: Customer Segmentation Dashboard
-        {
-            # Judul proyek dengan emoji
-            'title': '📈 Proyek 2: Customer Segmentation Dashboard',
+            'title': '📊 Proyek 1: E-commerce Customer Segmentation',
             # Kategori proyek
             'category': 'Dashboard',
             # Tahun proyek dibuat
-            'year': 2023,
+            'year': 2025,
             # Deskripsi detail tentang proyek
             'description': '''**Deskripsi:**
 Interactive dashboard untuk segmentasi pelanggan berdasarkan RFM analysis.
 
-**Tools:** SQL, Tableau, Python
+**Tools:** Python, Pandas, Matplotlib, Power BI
 
-**Key Metrics:**
-- 5 customer segments identified
-- Average CLV per segment
-- Churn risk prediction''',
+**Key Insights:**
+- Terdapat 5 kelompok
+- Churn risk prediction
+- pelanggan terbanyak adalah pelanggan baru''',
             # Flag apakah proyek memiliki gambar atau tidak
             'has_image': False
         },
-        # Proyek ketiga: Churn Prediction Model
+        # Proyek kedua: Churn Prediction Model
         {
             # Judul proyek dengan emoji
-            'title': '🤖 Proyek 3: Churn Prediction Model',
+            'title': '🤖 Proyek 2: Churn Prediction Model',
             # Kategori proyek
             'category': 'Prediction',
             # Tahun proyek dibuat
-            'year': 2024,
+            'year': 2025,
             # Deskripsi detail tentang proyek
             'description': '''**Deskripsi:**
-Machine learning model untuk memprediksi customer churn dengan akurasi 85%.
+Machine learning model untuk memprediksi customer churn dengan Recall 93%.
 
-**Tools:** Python, Scikit-learn, XGBoost
+**Tools:** Python, Scikit-learn, KNN, RandomForest, Logistic Regression
 
 **Performance:**
-- Accuracy: 85%
-- Precision: 0.82
-- Recall: 0.88''',
+- Recall: 93%
+- Accuracy: 61%
+- Precision: 40%''',
             # Flag apakah proyek memiliki gambar atau tidak
             'has_image': False
         }
@@ -155,38 +133,31 @@ def render_divider():
 #04.2
 # Fungsi untuk menampilkan navigasi di sidebar
 def render_sidebar_nav():
-    # Menampilkan judul navigasi di sidebar
     st.sidebar.markdown("# 📍 Navigasi")
 
-    # Membuat tombol radio untuk memilih halaman
+    if "nav_page" not in st.session_state:
+        st.session_state.nav_page = "🏠 Beranda"
+
     page = st.sidebar.radio(
-        # Label untuk radio button
         "Pilih halaman:",
-        # Opsi halaman yang tersedia
-        ["🏠 Beranda", "👤 Tentang Saya", "📁 Proyek", "📊 Dashboard", "📧 Contact"]
+        ["🏠 Beranda", "👤 Tentang Saya", "📁 Proyek", "📊 Dashboard", "📧 Contact"],
+        key="nav_page"
     )
 
-    # Menampilkan pemisah di sidebar
     st.sidebar.markdown("---")
-
-    # Menampilkan tautan media sosial di sidebar
     st.sidebar.markdown(
         """
         ### 🔗 Media Sosial
-        - [LinkedIn](https://linkedin.com)
-        - [GitHub](https://github.com)
-        - [Email](mailto:email@example.com)
+        - [LinkedIn](https://www.linkedin.com/in/jundyandymurti/)
+        - [GitHub](https://github.com/andyjundy04-sudo)
+        - [Email](andyjundy04@gmail.com)
         """
     )
-
-    # Menampilkan pemisah lagi di sidebar
     st.sidebar.markdown("---")
+    st.sidebar.caption("© 2025 Portfolio Saya")
 
-    # Menampilkan caption/teks kecil di sidebar
-    st.sidebar.caption("© 2024 Portfolio Saya")
-
-    # Mengembalikan halaman yang dipilih user
     return page
+
 
 #04.3
 # Fungsi untuk menampilkan foto profil
@@ -195,7 +166,7 @@ def render_profile_image():
     img_path = Path("assets/Jundy Andymurti.jpg")
 
     if img_path.exists():
-        st.image(img_path, caption="Foto Profil", use_container_width=True)
+        st.image(img_path, width=300) #use_container_width=True-> foto di besarkan
     else:
         st.warning("⚠️ Foto profil tidak ditemukan")
         st.info("💡 Pastikan file ada di folder assets/")
@@ -208,37 +179,38 @@ def page_beranda():
 
     # Menggunakan kolom pertama
     with col1:
-        # Menampilkan judul besar dengan emoji
-        st.title("🌟 Selamat Datang!")
-
-        # Menampilkan teks markdown dengan pengenalan diri
         st.markdown(
-            """
-            Halo, nama saya **Muhammad Rizki**. Saya adalah seorang **Data Analyst**
-            yang passionate tentang mengubah data menjadi insights yang actionable.
+        """
+        <div style="margin-top:40px">
+            <h1 style="margin-bottom:5px;">Muhammad Jundy Andymurti</h1>
+            <h4 style="color: #aaaaaa; font-weight:400; margin-top:0;">
+                Data Analyst • Business Intelligence • Machine Learning
+            </h4>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-            Dalam portfolio ini, saya menampilkan beberapa proyek data yang telah saya kerjakan,
-            dari exploratory data analysis hingga business intelligence dashboard.
-            """
-        )
+        st.markdown(
+        """
+        <p style="font-size:16px; line-height:1.6; max-width:520px;">
+        I transform raw data into meaningful insights to support
+        data-driven decision making. Experienced in exploratory analysis,
+        dashboarding, and predictive modeling.
+        </p>
+        """,
+        unsafe_allow_html=True
+    )
 
-        # Menampilkan ruang kosong untuk spacing
-        st.write(" ")
+    st.write("")
 
-        # Membuat 2 kolom untuk tombol
-        col_btn1, col_btn2 = st.columns(2)
+    col_btn1, col_btn2 = st.columns([1, 1])
 
-        # Menggunakan kolom pertama untuk tombol download CV
-        with col_btn1:
-            # Membuat tombol download CV
-            if st.button("📥 Download CV"):
-                # Menampilkan pesan sukses ketika tombol ditekan
-                st.success("CV berhasil diunduh!")
+    with col_btn1:
+        st.link_button("Download CV", "https://drive.google.com/file/d/1ENCzWkBkx7fJ6pnJSnTHV0d4quqA5h0e/view?usp=drive_link")
 
-        # Menggunakan kolom kedua untuk tombol hubungi
-        with col_btn2:
-            # Membuat tombol hubungi saya
-            if st.button("💬 Hubungi Saya"):
+    with col_btn2:
+        if st.button("Contact"):
                 # Menampilkan pesan info ketika tombol ditekan
                 st.info("Silakan scroll ke halaman Contact!")
 
@@ -249,102 +221,76 @@ def page_beranda():
 
     # Menampilkan garis pemisah
     render_divider()
+    
+    st.subheader("Work Summary")
+    col1, col2, col3 = st.columns(3)
 
-    # Menampilkan statistik singkat
-    st.subheader("📈 Statistik Singkat")
+    col1.metric("Experience", "1+ Years")
+    col2.metric("Projects Completed", "2+")
+    col3.metric("Datasets Analyzed", "10+")
 
-    # Membuat 4 kolom untuk menampilkan metrik
-    col1, col2, col3, col4 = st.columns(4)
-
-    # Menampilkan metrik proyek selesai
-    col1.metric("Proyek Selesai", 12, "+3")
-
-    # Menampilkan metrik total dataset
-    col2.metric("Total Dataset", 50, "-5")
-
-    # Menampilkan metrik jumlah klien
-    col3.metric("Clients", 8, "+2")
-
-    # Menampilkan metrik tahun pengalaman
-    col4.metric("Tahun Pengalaman", 3, "+1")
 
 #06.1
 # Fungsi untuk menampilkan halaman tentang saya
 def page_tentang_saya():
     # Menampilkan judul halaman dengan emoji
-    st.title("👤 Tentang Saya")
+    st.title("About Me")
 
     # Menampilkan subheader untuk latar belakang
-    st.subheader("Latar Belakang")
+    st.subheader("Background")
 
     # Menampilkan teks tentang latar belakang dan keahlian
-    st.write(
-        """
-        Saya adalah data analyst dengan pengalaman 3+ tahun di industri e-commerce dan fintech.
-        Saya berspesialisasi dalam:
-        - **Data Exploration & Cleaning**: Menggunakan Pandas & NumPy
-        - **Data Visualization**: Tableau, PowerBI, Streamlit
-        - **Statistical Analysis**: A/B Testing, Hypothesis Testing
-        - **Business Intelligence**: Dashboard development, KPI tracking
-        """
-    )
+    st.markdown(
+    """
+    <p style="max-width:700px; line-height:1.6;">
+    Data analyst & Data Scientist Enthusiast dengan pengalaman 1+ tahun di industri e-commerce.
+    Terbiasa mengubah data mentah menjadi insight bisnis melalui eksplorasi data,
+    visualisasi, dan analisis statistik.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
+
 
     # Menampilkan subheader untuk technical skills
-    st.subheader("🛠️ Technical Skills")
+    st.subheader("Technical Skills")
 
-    # Memanggil fungsi untuk mendapatkan data skills dan menyimpannya dalam variable
-    skills_data = get_skills_data()
+    skills = {
+    "Core": ["Python", "SQL","Excel"],
+    "Analytics": ["Statistics", "A/B Testing", "Data Visualization"],
+    "Tools": ["Power BI", "Streamlit", "VSCode","Colab"],
+    "ML": ["Machine Learning"]}
 
-    # Membuat bar chart menggunakan Plotly Express
-    fig = px.bar(
-        # Data yang digunakan untuk chart
-        skills_data,
-        # Kolom yang ditampilkan di x-axis
-        x='Skill',
-        # Kolom yang ditampilkan di y-axis
-        y='Proficiency',
-        # Judul chart
-        title='Tingkat Keahlian',
-        # Kolom yang digunakan untuk warna
-        color='Proficiency',
-        # Skala warna yang digunakan
-        color_continuous_scale='Viridis',
-        # Menampilkan nilai di atas bar
-        text='Proficiency'
-    )
+    cols = st.columns(4)
+    i = 0
 
-    # Menampilkan chart di Streamlit
-    st.plotly_chart(fig, use_container_width=True)
+    for _, skill_list in skills.items():
+        for skill in skill_list:
+            cols[i % 4].markdown(
+                f"""
+                <div style="
+                    background-color:#1f1f1f;
+                    padding:10px;
+                    border-radius:8px;
+                    text-align:center;
+                    margin-bottom:10px;
+                ">
+                    {skill}
+                </div>
+                """,
+                unsafe_allow_html=True)
+            i += 1
+
 
     # Menampilkan subheader untuk sertifikasi
-    st.subheader("📚 Sertifikasi")
+    st.subheader("Certifications")
 
-    # Membuat 3 kolom untuk menampilkan sertifikasi
-    cert_col1, cert_col2, cert_col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
 
-    # Menampilkan sertifikasi Google Analytics di kolom pertama
-    cert_col1.markdown(
-        """
-        **Google Analytics Certification**
-        ✅ Certified, 2022
-        """
-    )
+    col1.markdown("**Google Analytics Certification**  \nCertified · 2022")
+    col2.markdown("**SQL for Data Analysis**  \nCertified · 2021")
+    col3.markdown("**Data Visualization with Tableau**  \nCertified · 2023")
 
-    # Menampilkan sertifikasi SQL di kolom kedua
-    cert_col2.markdown(
-        """
-        **SQL for Data Analysis**
-        ✅ Certified, 2021
-        """
-    )
-
-    # Menampilkan sertifikasi Tableau di kolom ketiga
-    cert_col3.markdown(
-        """
-        **Data Visualization with Tableau**
-        ✅ Certified, 2023
-        """
-    )
 
 #07.1
 # asumsi: fungsi-fungsi ini tersedia di tempat lain dalam project
@@ -352,30 +298,32 @@ def page_tentang_saya():
 
 def page_proyek():
     # Menampilkan judul halaman dengan emoji
-    st.title("📁 Proyek Saya")
+    st.markdown("Projects")
+    st.markdown(
+    "<p style='color:#aaa'>Selected work with a focus on business impact</p>",
+    unsafe_allow_html=True
+)
 
-    # Menampilkan subheader untuk filter proyek
-    st.subheader("🔍 Filter Proyek")
 
-    # Membuat 2 kolom untuk filter
-    col1, col2 = st.columns(2)
+    with st.expander("Filter projects"):
+        col1, col2 = st.columns(2)
 
-    # Menggunakan kolom pertama untuk filter kategori
+
     with col1:
         selected_category = st.multiselect(
-            "Kategori:",
+            "Category",
             ['EDA', 'Dashboard', 'Prediction', 'Visualization'],
             default=['EDA', 'Dashboard', 'Prediction']
         )
 
-    # Menggunakan kolom kedua untuk filter tahun
     with col2:
         selected_year = st.slider(
-            "Tahun:",
-            2021,
+            "Year",
             2024,
-            (2021, 2024)
+            2025,
+            (2024, 2025)
         )
+
 
     # Menampilkan garis pemisah (pastikan render_divider() didefinisikan)
     render_divider()
@@ -405,10 +353,12 @@ def page_proyek():
     # Gunakan enumerate untuk membuat key tombol unik (agar tidak bentrok jika index DataFrame bukan 0..n-1)
     for i, (_, project) in enumerate(filtered_projects.iterrows()):
         # Membuat expander untuk setiap proyek (dapat diklik untuk membuka/menutup)
-        with st.expander(f"{project.get('title', 'Untitled')} ({project.get('year', '')})", expanded=(i == 0)):
+        with st.expander(
+                f"{project.get('title', 'Untitled')} · {project.get('category', '')} · {project.get('year', '')}",
+                expanded=(i == 0)):
             # Membuat 2 kolom jika proyek memiliki gambar, jika tidak membuat 1 kolom (container)
             if project.get('has_image', False):
-                col_left, col_right = st.columns([2, 1])
+                col_left, col_right = st.columns([1, 2])
             else:
                 col_left = st.container()
                 col_right = None
@@ -421,8 +371,7 @@ def page_proyek():
                 proj_url = project.get('url', None)
                 if proj_url:
                     # Tombol untuk membuka link di tab baru: gunakan markdown link (Streamlit akan membuka di tab baru)
-                    if st.button("🔗 View Project", key=f"project_{i}"):
-                        st.write(f"[Membuka project]({proj_url})")
+                    st.markdown(f"[View Project ↗]({proj_url})")
                 else:
                     if st.button("🔗 View Project", key=f"project_{i}"):
                         st.info(f"Link ke project {project.get('title', '')} akan dibuka!")
@@ -436,9 +385,14 @@ def page_proyek():
                     if not img_path.is_absolute():
                         img_path = Path.cwd() / img_path
                     if img_path.exists():
-                        st.image(str(img_path), caption="Project Screenshot")
+                        st.image(str(img_path),caption=f"{project.get('title', '')} - key output")
+
                     else:
                         st.info("📷 Screenshot tidak tersedia")
+    st.caption(
+    f"{project.get('category', '')} · "
+    f"{project.get('tools', 'Python, Pandas')} · "
+    f"{project.get('year', '')}")
 
 #08.1
 # Fungsi untuk menampilkan halaman dashboard
@@ -633,7 +587,9 @@ def page_contact() -> None:
     col1.markdown(
         """
         **Email**
-        📧 [email@example.com](mailto:email@example.com)
+        📧 
+        
+        [andyjundy04@gmail.com](andyjundy04@gmail.com)
         """
     )
 
@@ -641,7 +597,9 @@ def page_contact() -> None:
     col2.markdown(
         """
         **LinkedIn**
-        💼 [linkedin.com/in/username](https://linkedin.com)
+        💼 
+        
+        [linkedin.com/jundyandymurti](https://www.linkedin.com/in/jundyandymurti/)
         """
     )
 
@@ -649,7 +607,9 @@ def page_contact() -> None:
     col3.markdown(
         """
         **GitHub**
-        🐙 [github.com/username](https://github.com)
+        🐙 
+        
+        [github.com/andyjundy](https://github.com/andyjundy04-sudo)
         """
     )
 
@@ -680,7 +640,7 @@ def _missing_page(name: str) -> Callable[[], None]:
 
 def main() -> None:
     # Optional: configure the Streamlit page (adjust as needed)
-    st.set_page_config(page_title="Portfolio", layout="wide")
+    # st.set_page_config(page_title="Portfolio", layout="wide")
 
     # Build mapping from sidebar labels to page callables.
     pages: Dict[str, Callable[[], None]] = {
